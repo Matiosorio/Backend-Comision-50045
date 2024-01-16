@@ -172,11 +172,11 @@ async function runTests() {
         console.error('Error al agregar productos', error.message);
     }
 
-    // Llama al método “getProducts” nuevamente
+    // Se llama al método “getProducts” nuevamente
     const productsAfterAddition = await manager.getProducts();
     console.log('Productos después de la adición:', productsAfterAddition);
 
-    //Llamar a getProductById con ID existente
+    //Se llama a getProductById con ID existente
     try {
         // Obtener el producto con ID existente
         const productWithId1 = await manager.getProductById(1);
@@ -185,7 +185,7 @@ async function runTests() {
         console.error('Error al obtener el producto por ID', error.message);
     }
 
-    //Llamar a getProductById con ID inexistente
+    //Se llama a getProductById con ID inexistente
     try {
         // Obtener el producto con ID inexistente
         await manager.getProductById(111);
@@ -217,7 +217,7 @@ async function runTests() {
         console.error('Error al actualizar el producto:', error.message);
     }
 
-    // Llamada a deleteProduct para eliminar el producto
+    // Llamo a deleteProduct para eliminar el producto
 
     try {
         const productIdToDelete = 1;

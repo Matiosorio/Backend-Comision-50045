@@ -1,92 +1,92 @@
 [
     {
         "id": 1,
-        "title": "producto prueba 1",
-        "description": "Este es un producto prueba",
-        "price": 500,
+        "title": "Lavandina concentrada",
+        "description": "Elimina todos los germenes",
+        "price": 1500,
         "thumbnail": "Sin imagen",
         "code": "abc123",
-        "stock": 25
+        "stock": 30
     },
     {
         "id": 2,
-        "title": "producto prueba 2",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Cloro",
+        "description": "Para todas las piletas",
+        "price": 10900,
         "thumbnail": "Sin imagen",
         "code": "abc124",
         "stock": 25
     },
     {
         "id": 3,
-        "title": "producto prueba 3",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Jabon liquido",
+        "description": "Antibacterial para manos",
+        "price": 3900,
         "thumbnail": "Sin imagen",
         "code": "abc125",
-        "stock": 25
+        "stock": 45
     },
     {
         "id": 4,
-        "title": "producto prueba 4",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Rollo de cocina",
+        "description": "Maxima absorción",
+        "price": 500,
         "thumbnail": "Sin imagen",
         "code": "abc126",
-        "stock": 25
+        "stock": 50
     },
     {
         "id": 5,
-        "title": "producto prueba 5",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Alcohol en gel",
+        "description": "Elimina el 99% de los germenes",
+        "price": 9500,
         "thumbnail": "Sin imagen",
         "code": "abc127",
-        "stock": 25
+        "stock": 10
     },
     {
         "id": 6,
-        "title": "producto prueba 6",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Papel Higienico",
+        "description": "El mas suave",
+        "price": 8000,
         "thumbnail": "Sin imagen",
         "code": "abc128",
-        "stock": 25
+        "stock": 40
     },
     {
         "id": 7,
-        "title": "producto prueba 7",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Bolsas de residuos",
+        "description": "Las mas resistentes",
+        "price": 500,
         "thumbnail": "Sin imagen",
         "code": "abc129",
-        "stock": 25
+        "stock": 45
     },
     {
         "id": 8,
-        "title": "producto prueba 8",
+        "title": "Balde",
         "description": "Este es un producto prueba",
-        "price": 1000,
+        "price": 3100,
         "thumbnail": "Sin imagen",
         "code": "abc130",
-        "stock": 25
+        "stock": 15
     },
     {
         "id": 9,
-        "title": "producto prueba 9",
-        "description": "Este es un producto prueba",
-        "price": 1000,
+        "title": "Caja de Guantes",
+        "description": "Guantes de goma",
+        "price": 7500,
         "thumbnail": "Sin imagen",
         "code": "abc131",
-        "stock": 25
+        "stock": 5
     },
     {
         "id": 10,
-        "title": "producto prueba 10",
-        "description": "Este es un producto prueba",
+        "title": "Suavizante",
+        "description": "La mejor fragancia",
         "price": 1000,
         "thumbnail": "Sin imagen",
         "code": "abc132",
-        "stock": 25
+        "stock": 20
     }
 ]

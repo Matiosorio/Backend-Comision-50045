@@ -7,6 +7,8 @@ const productManager = new ProductManager("./src/products.json");
 
 app.use(express.json());
 
+//Se lee el archivo de productos y los devuelve. Se agrega soporte para recibir por query param el valor ?limit= 
+
 app.get("/products", async (req, res) => {
     try {
         const limit = req.query.limit; // Obtén el límite de la consulta si se proporciona

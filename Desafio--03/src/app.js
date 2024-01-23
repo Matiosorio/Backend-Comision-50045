@@ -7,6 +7,11 @@ const productManager = new ProductManager("./src/products.json");
 
 app.use(express.json());
 
+// Ruta para la raíz para que corra en el puerto 8080
+app.get("/", (req, res) => {
+    res.send("El servidor está corriendo");
+});
+
 //Se lee el archivo de productos y los devuelve. Se agrega soporte para recibir por query param el valor ?limit= 
 
 app.get("/products", async (req, res) => {
@@ -14,7 +19,7 @@ app.get("/products", async (req, res) => {
         const limit = req.query.limit; // Obtén el límite de la consulta si se proporciona
         const products = await productManager.getProducts();
 
-        if(limit) {
+        if (limit) {
             res.json(products.slice(0, limit));
         } else {
             res.json(products);

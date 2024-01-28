@@ -45,7 +45,7 @@ class CartManager {
 
     async getCartById(cartId) {
         try {
-            const cart = this.carts.find(c => c.id === cartId);
+            const cart = this.carts.find(cartItem => cartItem.id === cartId);
 
             if(!cart) {
                 throw new Error (`No existe un carrito con el id ${cartId} `);
@@ -60,10 +60,10 @@ class CartManager {
 
     async addProductToCart(cartId, productId, quantity = 1) {
         const cart = await this.getCartById(cartId);
-        const realProduct = cart.products.find(p => p.product === productId);
+        const foundProduct = cart.products.find(product => product.product === productId);
 
-        if(realProduct) {
-            realProduct.quantity += quantity;
+        if(foundProduct) {
+            foundProduct.quantity += quantity;
         } else {
             cart.products.push({product: productId, quantity});
         }

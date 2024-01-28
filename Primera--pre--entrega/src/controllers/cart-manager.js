@@ -20,7 +20,7 @@ class CartManager {
                 //metodo map para crear un nuevo array que solo tenga los identificadores del carrito y con Math.max se obtiene el mayor
             }
         } catch (error) {
-            console.error("Error al cargar los carritor", error);
+            console.error("Error al cargar los carritos", error);
             // Si no existe el archivo lo crea
             await this.loadCarts();
         }
@@ -65,7 +65,7 @@ class CartManager {
         if(realProduct) {
             realProduct.quantity += quantity;
         } else {
-            cart,products.push({product: productId, quantity});
+            cart.products.push({product: productId, quantity});
         }
 
         await this.saveCarts();

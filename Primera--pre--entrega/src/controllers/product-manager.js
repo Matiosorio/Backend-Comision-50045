@@ -9,11 +9,11 @@ class ProductManager {
         this.path = path;
     }
 
-    async addProduct({ title, description, price, thumbnail, code, stock }) {
+    async addProduct({ title, description, price, thumbnail, code, stock, category }) {
         try {
             const arrayProducts = await this.getProducts();
 
-            if (!title || !description || !price || !thumbnail || !code || !stock) {
+            if (!title || !description || !price || !thumbnail || !code || !stock || !category ) {
                 throw new Error("Todos los campos son obligatorios");
             }
 
@@ -25,10 +25,12 @@ class ProductManager {
                 id: ++ProductManager.lastId,
                 title,
                 description,
-                price,
-                thumbnail,
                 code,
-                stock
+                price,
+                status: true,
+                stock,
+                category,
+                thumbnail: thumbnail || []
             }
 
 
@@ -46,6 +48,10 @@ class ProductManager {
         try {
             const answer = await fs.readFile(this.path, "utf-8");
             const arrayProducts = JSON.parse(answer);
+            if (arrayProducts.length > 0) {
+                // Si hay productos, actualiza lastId con el último ID
+                ProductManager.lastId = Math.max(...arrayProducts.map(product => product.id));
+            };
             return arrayProducts;
         } catch (error) {
             if (error.code === 'ENOENT') {

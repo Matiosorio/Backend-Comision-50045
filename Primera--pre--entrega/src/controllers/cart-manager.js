@@ -6,30 +6,31 @@ class CartManager {
         this.path = path;
         this.lastId = 0;
 
-        //cargar los carritos almacenados
+        //Metodo para cargar los carts
         this.loadCarts();
     }
 
+    //Metodo para cargar los carts
     async loadCarts() {
         try {
             const data = await fs.readFile(this.path, "utf-8");
             this.carts = JSON.parse(data);
-            if(this.carts.length > 0) {
-                //verifica si hay un carrito creado
+            if (this.carts.length > 0) {
                 this.lastId = Math.max(...this.carts.map(cart => cart.id));
-                //metodo map para crear un nuevo array que solo tenga los identificadores del carrito y con Math.max se obtiene el mayor
+                //Comprueba si hay carts. Si los hay, mapea para crear un nuevo array que contenga solo los id. Math.max encuentra el mayor.
             }
         } catch (error) {
             console.error("Error al cargar los carritos", error);
-            // Si no existe el archivo lo crea
             await this.loadCarts();
         }
     }
 
+    //Guardar el estado actual de los carts
     async saveCarts() {
         await fs.writeFile(this.path, JSON.stringify(this.carts, null, 2));
     }
 
+    //Crear un nuevo cart y guardarlo
     async createCart() {
         const newCart = {
             id: ++this.lastId,
@@ -43,12 +44,13 @@ class CartManager {
         return newCart;
     }
 
+    //Obtener un cart por Id
     async getCartById(cartId) {
         try {
             const cart = this.carts.find(cartItem => cartItem.id === cartId);
 
-            if(!cart) {
-                throw new Error (`No existe un carrito con el id ${cartId} `);
+            if (!cart) {
+                throw new Error(`No existe un carrito con el id ${cartId} `);
             }
             return cart;
 
@@ -58,14 +60,15 @@ class CartManager {
         }
     }
 
+    //Agrega un producto a un cart existente o lo crea si no existe
     async addProductToCart(cartId, productId, quantity = 1) {
         const cart = await this.getCartById(cartId);
         const foundProduct = cart.products.find(product => product.product === productId);
 
-        if(foundProduct) {
+        if (foundProduct) {
             foundProduct.quantity += quantity;
         } else {
-            cart.products.push({product: productId, quantity});
+            cart.products.push({ product: productId, quantity });
         }
 
         await this.saveCarts();

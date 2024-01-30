@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const ProductManager = require("../controllers/product-manager.js");
+const ProductManager = require("../controllers/ProductManager.js");
 const productManager = new ProductManager("./src/models/products.json");
 
 router.get("/", async (req, res) => {
     try {
-        const limit = req.query.limit; // Obtén el límite de la consulta si se proporciona
+        const limit = req.query.limit; // Obtiene el límite de la consulta si se proporciona
         const products = await productManager.getProducts();
 
         if (limit) {

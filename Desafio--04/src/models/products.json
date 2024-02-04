@@ -108,5 +108,16 @@
     "stock": 20,
     "category": "Lavado",
     "thumbnail": []
+  },
+  {
+    "id": 11,
+    "title": "Pala",
+    "description": "Fiorentina",
+    "code": "abc133",
+    "price": "950",
+    "status": true,
+    "stock": "10",
+    "category": "Accesorios",
+    "thumbnail": "Sin imagen"
   }
 ]

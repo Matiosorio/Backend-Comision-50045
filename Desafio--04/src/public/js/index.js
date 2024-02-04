@@ -30,6 +30,29 @@ const productsRender = (products) => {
     })
 }
 
+//Elimnar producto
+
 const deleteProduct = (id) => {
     socket.emit("deleteProduct", id);
+}
+
+//Agregar productos desde el form
+
+document.getElementById("btnSend").addEventListener("click", () => {
+    addProduct();
+})
+
+const addProduct = () => {
+    const product = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        code: document.getElementById("code").value,
+        price: document.getElementById("price").value,
+        stock: document.getElementById("stock").value,
+        category: document.getElementById("category").value,
+        thumbnail: document.getElementById("thumbnail").value,
+        status: document.getElementById("status").value,
+    };
+
+    socket.emit("addProduct", product);
 }

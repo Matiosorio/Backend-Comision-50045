@@ -10,7 +10,7 @@ const socket = require("socket.io");
 
 
 //Middleware
-app.use(express.urlencoded({extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./src/public"));
 
@@ -47,6 +47,14 @@ io.on("connection", async (socket) => {
     socket.on("deleteProduct", async (id) => {
         await productManager.deleteProduct(id);
         //Se envía nuevamente la vista actualizada
+        io.sockets.emit("products", await productManager.getProducts());
+
+    })
+
+    //Agregar producto:
+    socket.on("addProduct", async (product) => {
+        await productManager.addProduct(product);
+        //Nuevamente se recibe la actualización
         io.sockets.emit("products", await productManager.getProducts());
     })
 })

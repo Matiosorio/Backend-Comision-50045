@@ -10,24 +10,31 @@ const productsRender = (products) => {
     const productsContainer = document.getElementById("productsContainer");
     productsContainer.innerHTML = "";
 
+    const row = document.createElement("div");
+    row.classList.add("row"); // Agrega la clase 'row'
+
     products.forEach(item => {
         const card = document.createElement("div");
-        card.classList.add("card");
+        card.classList.add("card", "col-12", "col-sm-6", "col-md-4", "col-lg-3", "mb-3");
 
         card.innerHTML = `
-                        <p> ${item.id} </>
-                        <p> ${item.title} </>
-                        <p> ${item.price} </>
-                        <br>
-                        <button> Eliminar </button>
-                        `;
-        productsContainer.appendChild(card);
+        <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text">ID: ${item.id}</p>
+            <p class="card-text">Precio: ${item.price}</p>
+            <button class="btn btn-danger">Eliminar</button>
+        </div>
+    `;
+
+        row.appendChild(card);
 
         //Evento para boton eliminar
-        card.querySelector("button").addEventListener("click", ()=> {
+        card.querySelector("button").addEventListener("click", () => {
             deleteProduct(item.id);
         })
-    })
+    });
+
+    productsContainer.appendChild(row);
 }
 
 //Elimnar producto

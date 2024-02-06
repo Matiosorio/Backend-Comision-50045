@@ -119,5 +119,16 @@
     "stock": "10",
     "category": "Accesorios",
     "thumbnail": "Sin imagen"
+  },
+  {
+    "id": 12,
+    "title": "Blem ",
+    "description": "Limpia muebles",
+    "code": "abc134",
+    "price": "1500",
+    "status": true,
+    "stock": "30",
+    "category": "Limpieza",
+    "thumbnail": "Sin imagen"
   }
 ]

@@ -11,7 +11,7 @@ const productsRender = (products) => {
     productsContainer.innerHTML = "";
 
     const row = document.createElement("div");
-    row.classList.add("row"); // Agrega la clase 'row'
+    row.classList.add("row");
 
     products.forEach(item => {
         const card = document.createElement("div");

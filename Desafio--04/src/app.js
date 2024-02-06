@@ -5,7 +5,7 @@ const PUERTO = 8080;
 const productsRouter = require("./routes/products.router.js");
 const cartsRouter = require("./routes/carts.router.js");
 const viewsRouter = require("./routes/views.router.js");
-const exphbs = require("express-handlebars");
+const handlebars = require("express-handlebars");
 const socket = require("socket.io");
 
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static("./src/public"));
 
 //Handlebars
-app.engine("handlebars", exphbs.engine());
+app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 

@@ -5,46 +5,50 @@ h1, h2 {
 
 .cardsContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
     flex-wrap: wrap;
+    max-width: 960px; 
+    margin: 0 auto; 
 }
 
 .card {
+    flex: 0 0 calc(25% - 20px);
     border: 1px solid #ccc;
-    border-radius: 2px;
+    border-radius: 8px; 
     margin: 10px;
     padding: 10px;
     min-width: 200px;
+    max-width: 250px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease; 
 }
 
 form {
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: auto; /* Mueve el formulario hacia la derecha */
-    margin-right: auto; /* Mueve el formulario hacia la izquierda */
-    max-width: 400px; /* Establece un ancho máximo para el formulario */
+    margin-left: auto; 
+    margin-right: auto; 
+    max-width: 400px; /
 }
 
-/* Estilo para los campos de entrada */
+
 form input,
 form select {
     max-width: 300px;
     width: 100%;
     padding: 8px;
-    margin: 10px auto; /* Aumenta el margen superior e inferior */
+    margin: 10px auto; 
     box-sizing: border-box;
-    display: block; /* Cambia la visualización a bloque para que ocupen toda la anchura disponible */
+    display: block; 
 }
 
-
-/* Estilo para el botón */
 form button {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    display: block; /* Hacer que el botón ocupe todo el ancho disponible */
-    margin: 0 auto; /* Centrar el botón dentro del formulario */
+    display: block; 
+    margin: 0 auto; 
 }

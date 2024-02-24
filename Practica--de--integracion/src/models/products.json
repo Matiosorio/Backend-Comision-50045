@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "Lavandina concentrada",
+    "description": "Ayudin",
+    "code": "abc123",
+    "price": 1500,
+    "status": true,
+    "stock": 30,
+    "category": "Limpieza",
+    "thumbnail": []
+  },
+  {
+    "id": 2,
+    "title": "Cloro",
+    "description": "Clorotex",
+    "code": "abc124",
+    "price": 10900,
+    "status": true,
+    "stock": 25,
+    "category": "Piscina",
+    "thumbnail": []
+  },
+  {
+    "id": 3,
+    "title": "Jabon liquido",
+    "description": "Algabo",
+    "code": "abc125",
+    "price": 3900,
+    "status": true,
+    "stock": 45,
+    "category": "Limpieza",
+    "thumbnail": []
+  },
+  {
+    "id": 4,
+    "title": "Rollo de cocina",
+    "description": "Sussex",
+    "code": "abc126",
+    "price": 500,
+    "status": true,
+    "stock": 50,
+    "category": "Papeles",
+    "thumbnail": []
+  },
+  {
+    "id": 5,
+    "title": "Alcohol en gel",
+    "description": "Elimina el 99% de los germenes",
+    "code": "abc127",
+    "price": 9500,
+    "status": true,
+    "stock": 10,
+    "category": "Limpieza",
+    "thumbnail": []
+  },
+  {
+    "id": 6,
+    "title": "Papel Higienico",
+    "description": "Higienol",
+    "code": "abc128",
+    "price": 8000,
+    "status": true,
+    "stock": 40,
+    "category": "Papeles",
+    "thumbnail": []
+  },
+  {
+    "id": 7,
+    "title": "Bolsas de residuos",
+    "description": "Asurin",
+    "code": "abc129",
+    "price": 500,
+    "status": true,
+    "stock": 45,
+    "category": "Bolsas",
+    "thumbnail": []
+  },
+  {
+    "id": 8,
+    "title": "Balde",
+    "description": "Balde de plastico",
+    "code": "abc130",
+    "price": 3100,
+    "status": true,
+    "stock": 15,
+    "category": "Accesorios",
+    "thumbnail": []
+  },
+  {
+    "id": 9,
+    "title": "Caja de Guantes",
+    "description": "Mapa",
+    "code": "abc131",
+    "price": 7500,
+    "status": true,
+    "stock": 5,
+    "category": "Accesorios",
+    "thumbnail": []
+  },
+  {
+    "id": 10,
+    "title": "Suavizante",
+    "description": "Vivere",
+    "code": "abc132",
+    "price": 1000,
+    "status": true,
+    "stock": 20,
+    "category": "Lavado",
+    "thumbnail": []
+  },
+  {
+    "id": 11,
+    "title": "Pala",
+    "description": "Fiorentina",
+    "code": "abc133",
+    "price": "950",
+    "status": true,
+    "stock": "10",
+    "category": "Accesorios",
+    "thumbnail": "Sin imagen"
+  },
+  {
+    "id": 12,
+    "title": "Blem ",
+    "description": "Limpia muebles",
+    "code": "abc134",
+    "price": "1500",
+    "status": true,
+    "stock": "30",
+    "category": "Limpieza",
+    "thumbnail": "Sin imagen"
+  }
+]

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const ProductManager = require("../controllers/ProductManager.js");
-const productManager = new ProductManager("./src/models/products.json");
+const ProductManager = require("../controllers/ProductManager-Db.js");
+const productManager = new ProductManager();
 
 router.get("/", async (req, res) => {
     try {
@@ -26,7 +26,7 @@ router.get("/:pid", async (req, res) => {
     let pid = req.params.pid;
 
     try {
-        const product = await productManager.getProductById(parseInt(pid));
+        const product = await productManager.getProductById(pid);
         if (product) {
             res.json(product);
         } else {
@@ -59,7 +59,7 @@ router.put("/:pid", async (req, res) => {
     const productUpdate = req.body;
 
     try {
-        await productManager.updateProduct(parseInt(pid), productUpdate);
+        await productManager.updateProduct(pid, productUpdate);
         res.json({
             message: "Producto actualizado exitosamente"
         });
@@ -74,7 +74,7 @@ router.delete("/:pid", async (req, res) => {
     const pid = req.params.pid;
     
     try {
-        await productManager.deleteProduct(parseInt(pid));
+        await productManager.deleteProduct(pid);
         res.json({message: "Producto eliminado exitosamente"});
     } catch (error) {
         console.error("Error al eliminar el producto", error);

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const CartManager = require("../controllers/CartManager.js");
-const cartManager = new CartManager("./src/models/carts.json");
+const CartManager = require("../controllers/CartManager-Db.js");
+const cartManager = new CartManager();
 
 //Crear nuevo carrito
 
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 //Listar los productos que pertenecen a determinado carrito.
 
 router.get("/:cid", async (req, res) => {
-    const cartId = parseInt(req.params.cid);
+    const cartId = req.params.cid;
 
     try {
         const cart = await cartManager.getCartById(cartId);
@@ -32,9 +32,9 @@ router.get("/:cid", async (req, res) => {
 //Agregar distintos productos
 
 router.post("/:cid/product/:pid", async (req, res) => {
-    const cartId = parseInt(req.params.cid);
+    const cartId = req.params.cid;
     const productId = req.params.pid;
-    const quantity = 1;
+    const quantity = req.body.quantity || 1;
 
     try {
         const updateCart = await cartManager.addProductToCart(cartId, productId, quantity);

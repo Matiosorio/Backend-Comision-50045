@@ -1,14 +1,14 @@
 const CartModel = require("../models/cart.model.js");
 
 class CartManager {
-    async createCart () {
+    async createCart() {
         try {
-            const newCart = new CartModel({products: []});
+            const newCart = new CartModel({ products: [] });
             await newCart.save();
             return newCart;
         } catch (error) {
-            console.log("Error al crear un cart", error);
-            throw error;
+            console.error("Error al crear un cart", error);
+            throw new Error("Error al crear un carrito", error);
         }
     }
 
@@ -16,8 +16,8 @@ class CartManager {
         try {
             const cart = await CartModel.findById(cartId);
 
-            if(!cart) {
-                console.log("No hat cart con el id solicitado");
+            if (!cart) {
+                console.log("No hay cart con el id solicitado");
                 return null;
             }
 
@@ -34,10 +34,10 @@ class CartManager {
             const cart = await this.getCartById(cartId);
             const productExist = cart.products.find(item => item.product.toString() === productId);
 
-            if(productExist) {
+            if (productExist) {
                 productExist.quantity += quantity;
             } else {
-                cart.products.push({product: productId, quantity});
+                cart.products.push({ product: productId, quantity });
             }
 
             cart.markModified("products");

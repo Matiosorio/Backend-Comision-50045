@@ -50,36 +50,7 @@ io.on("connection", (socket) => {
     })
 })
 
-// //Obtener el array de productos
 
-// const ProductManager = require("./controllers/ProductManager.js");
-// const productManager = new ProductManager("./src/models/products.json");
-
-// //Server socket
-// const io = socket(server);
-
-// //Conexión
-// io.on("connection", async (socket) => {
-//     console.log("Nuevo cliente conectado");
-
-//     //Se envia el array al cliente
-//     socket.emit("products", await productManager.getProducts());
-
-//     //Evento eliminar producto lado cliente
-//     socket.on("deleteProduct", async (id) => {
-//         await productManager.deleteProduct(id);
-//         //Se envía nuevamente la vista actualizada
-//         io.sockets.emit("products", await productManager.getProducts());
-
-//     })
-
-//     //Agregar producto:
-//     socket.on("addProduct", async (product) => {
-//         await productManager.addProduct(product);
-//         //Nuevamente se recibe la actualización
-//         io.sockets.emit("products", await productManager.getProducts());
-//     })
-// })
 
 
 

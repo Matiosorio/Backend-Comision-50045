@@ -48,7 +48,7 @@ class ProductManager {
                 }
             }
 
-            const productos = await ProductModel
+            const products = await ProductModel
                 .find(queryOptions)
                 .sort(sortOptions)
                 .skip(skip)
@@ -61,7 +61,7 @@ class ProductManager {
             const hasNextPage = page < totalPages;
 
             return {
-                docs: productos,
+                docs: products,
                 totalPages,
                 prevPage: hasPrevPage ? page - 1 : null,
                 nextPage: hasNextPage ? page + 1 : null,
@@ -76,13 +76,6 @@ class ProductManager {
             throw error;
         }
 
-        /* try {
-            const products = await ProductModel.find();
-            return products;
-        } catch (error) {
-            console.log("Error al leer el archivo", error);
-            throw error;
-        } */
     }
 
     async getProductById(id) {

@@ -56,7 +56,6 @@ class CartManager {
                 throw new Error('Cart no encontrado');
             }
 
-            //cart.products = cart.products.filter(item => item.product.toString() !== productId);
             cart.products = cart.products.filter(item => item.product._id.toString() !== productId);
 
             await cart.save();

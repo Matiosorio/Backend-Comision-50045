@@ -1,43 +1,40 @@
 const express = require("express");
 const router = express.Router();
+
 const CartManager = require("../controllers/CartManager-Db.js");
 const cartManager = new CartManager();
 const CartModel = require("../models/cart.model.js");
 
-//Crear nuevo cart
-
+// Crear nuevo carrito
 router.post("/", async (req, res) => {
     try {
         const newCart = await cartManager.createCart();
         res.json(newCart);
     } catch (error) {
         console.error("Error al crear un nuevo carrito", error);
-        res.status(500).json({error: "Error del servidor"});
+        res.status(500).json({ error: "Error del servidor" });
     }
 });
 
-//Listar los productos que pertenecen a determinado cart
-
+// Listar los productos de un carrito
 router.get("/:cid", async (req, res) => {
-    const cartId = req.params.cid;
-
     try {
-        const cart = await CartModel.findById(cartId)
-            
+        const cartId = req.params.cid;
+        const cart = await CartModel.findById(cartId);
+
         if (!cart) {
-            console.log("No existe el cart con el id especificado");
-            return res.status(404).json({ error: "Cart no encontrado" });
+            console.log("No existe el carrito con el ID especificado");
+            return res.status(404).json({ error: "Carrito no encontrado" });
         }
 
         return res.json(cart.products);
     } catch (error) {
         console.error("Error al obtener el carrito", error);
-        res.status(404).json({error: "Carrito no encontrado"});
+        res.status(404).json({ error: "Carrito no encontrado" });
     }
 });
 
-//Agregar distintos productos
-
+// Agregar productos al carrito
 router.post("/:cid/product/:pid", async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
@@ -48,12 +45,11 @@ router.post("/:cid/product/:pid", async (req, res) => {
         res.json(updateCart.products);
     } catch (error) {
         console.error("Error al agregar el producto al carrito", error);
-        res.status(500).json({error: "Error del servidor"});
+        res.status(500).json({ error: "Error del servidor" });
     }
 });
 
-//Eliminar producto especifico
-
+// Eliminar producto específico del carrito
 router.delete('/:cid/product/:pid', async (req, res) => {
     try {
         const cartId = req.params.cid;
@@ -63,11 +59,11 @@ router.delete('/:cid/product/:pid', async (req, res) => {
 
         res.json({
             status: 'success',
-            message: 'Producto eliminado correctamente del cart',
+            message: 'Producto eliminado correctamente del carrito',
             updatedCart,
         });
     } catch (error) {
-        console.error('Error al eliminar el producto del cart', error);
+        console.error('Error al eliminar el producto del carrito', error);
         res.status(500).json({
             status: 'error',
             error: 'Error del servidor',
@@ -75,18 +71,16 @@ router.delete('/:cid/product/:pid', async (req, res) => {
     }
 });
 
-//Actualizar porductos del cart
-
+// Actualizar productos del carrito
 router.put('/:cid', async (req, res) => {
     const cartId = req.params.cid;
     const updatedProducts = req.body;
-    // Debes enviar un arreglo de productos en el cuerpo de la solicitud
 
     try {
         const updateCart = await cartManager.updatedCart(cartId, updatedProducts);
         res.json(updateCart);
     } catch (error) {
-        console.error('Error al actualizar los productos del cart', error);
+        console.error('Error al actualizar los productos del carrito', error);
         res.status(500).json({
             status: 'error',
             error: 'Error del servidor',
@@ -94,7 +88,7 @@ router.put('/:cid', async (req, res) => {
     }
 });
 
-//Actualizar cantidades
+// Actualizar cantidades de productos en el carrito
 router.put('/:cid/product/:pid', async (req, res) => {
     try {
         const cartId = req.params.cid;
@@ -105,11 +99,11 @@ router.put('/:cid/product/:pid', async (req, res) => {
 
         res.json({
             status: 'success',
-            message: 'Cantidad actualizada correctamente del producto',
+            message: 'Cantidad actualizada correctamente del producto en el carrito',
             updatedCart,
         });
     } catch (error) {
-        console.error('Error al actualizar la cantidad', error);
+        console.error('Error al actualizar la cantidad del producto en el carrito', error);
         res.status(500).json({
             status: 'error',
             error: 'Error del servidor',
@@ -117,21 +111,19 @@ router.put('/:cid/product/:pid', async (req, res) => {
     }
 });
 
-//Vaciado de cart
-
+// Vaciar carrito
 router.delete('/:cid', async (req, res) => {
     try {
         const cartId = req.params.cid;
-        
         const updatedCart = await cartManager.emptyCart(cartId);
 
         res.json({
             status: 'success',
-            message: 'No quedan productos en el cart',
+            message: 'No quedan productos en el carrito',
             updatedCart,
         });
     } catch (error) {
-        console.error('Error al vaciar el cart', error);
+        console.error('Error al vaciar el carrito', error);
         res.status(500).json({
             status: 'error',
             error: 'Error del servidor',

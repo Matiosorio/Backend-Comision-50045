@@ -6,20 +6,6 @@ const productManager = new ProductManager();
 
 router.get("/", async (req, res) => {
     try {
-        const limit = req.query.limit; // Obtiene el límite de la consulta si se proporciona
-        const products = await productManager.getProducts();
-
-        if (limit) {
-            res.json(products.slice(0, limit));
-        } else {
-            res.json(products);
-        }
-    } catch (error) {
-        console.log("Error al obtener los productos", error);
-        res.status(500).json({ error: 'Error del servidor' });
-    }
-
-    try {
         const { limit = 10, page = 1, sort, query } = req.query;
 
         const products = await productManager.getProducts({
@@ -51,13 +37,12 @@ router.get("/", async (req, res) => {
     }
 });
 
-//Traer un solo producto por ID
-
+// Obtener un solo producto por ID
 router.get("/:pid", async (req, res) => {
-    const pid = req.params.pid;
-
     try {
+        const pid = req.params.pid;
         const product = await productManager.getProductById(pid);
+
         if (product) {
             res.json(product);
         } else {
@@ -68,48 +53,44 @@ router.get("/:pid", async (req, res) => {
     }
 });
 
-//Agregar un nuevo producto:
-
+// Agregar un nuevo producto
 router.post("/", async (req, res) => {
-    const newProduct = req.body;
-    
     try {
+        const newProduct = req.body;
         await productManager.addProduct(newProduct);
         res.status(201).json({
             message: "Producto agregado exitosamente"
         });
     } catch (error) {
         console.error("Error al agregar un producto", error);
-        res.status(500).json({error: "Error del servidor"});
+        res.status(500).json({ error: "Error del servidor" });
     }
 });
 
-//Actualizar producto por ID
+// Actualizar producto por ID
 router.put("/:pid", async (req, res) => {
-    const pid = req.params.pid;
-    const productUpdate = req.body;
-
     try {
+        const pid = req.params.pid;
+        const productUpdate = req.body;
         await productManager.updateProduct(pid, productUpdate);
         res.json({
             message: "Producto actualizado exitosamente"
         });
     } catch (error) {
-        console.error("Error al actuzalizar el producto", error);
-        res.status(500).json({error: "Error del servidor"});
+        console.error("Error al actualizar el producto", error);
+        res.status(500).json({ error: "Error del servidor" });
     }
 });
 
-//Eliminar Producto:
+// Eliminar Producto
 router.delete("/:pid", async (req, res) => {
-    const pid = req.params.pid;
-    
     try {
+        const pid = req.params.pid;
         await productManager.deleteProduct(pid);
-        res.json({message: "Producto eliminado exitosamente"});
+        res.json({ message: "Producto eliminado exitosamente" });
     } catch (error) {
         console.error("Error al eliminar el producto", error);
-        res.status(500).json({error: "Error del servidor"});
+        res.status(500).json({ error: "Error del servidor" });
     }
 });
 

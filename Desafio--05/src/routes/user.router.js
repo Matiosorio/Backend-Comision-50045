@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
         //req.session.login = true;
         //req.session.user = {...newUser._doc};
 
-        res.redirect("/login");
+        res.send('Usuario creado exitosamente. ¡Bienvenido! <a href="/login">Iniciar sesión</a>');
     } catch (error) {
         console.error("Error al crear el usuario", error);
         res.status(500).send({error: "Error al guardar el usuario"});

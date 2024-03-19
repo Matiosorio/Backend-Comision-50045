@@ -3,41 +3,8 @@ const router = express.Router();
 const UserModel = require("../models/user.model.js");
 const { isValidPassword } = require("../utils/hashbcrypt.js");
 const passport = require("passport");
+
 //Login
-/*
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
-            // Es el usuario administrador
-            req.session.login = true;
-            req.session.user = { email: "adminCoder@coder.com", role: "admin" };
-            return res.redirect("/products");
-        }
-
-        // No es el usuario administrador, buscar en la base de datos
-        const user = await UserModel.findOne({ email: email });
-
-        if (user) {
-            //if (user.password === password) {
-            if(isValidPassword(password, user)) {
-                req.session.login = true;
-                req.session.user = { ...user._doc };
-                
-                return res.redirect("/products");
-            } else {
-                return res.status(401).send({ error: "Contraseña no válida" });
-            }
-        } else {
-            return res.status(404).send({ error: "Usuario no encontrado" });
-        }
-    } catch (error) {
-        console.error("Error en el login:", error);
-        return res.status(400).send({ error: "Error en el login" });
-    }
-});
-*/
 
 //Passport
 
@@ -69,6 +36,17 @@ router.get("/logout", (req, res) => {
         req.session.destroy();
     }
     res.redirect("/login");
+})
+
+//Versión Github
+
+router.get("/github", passport.authenticate("github", {scope: ["user:email"]}) ,async (req, res) => {
+})
+
+router.get("/githubcallback", passport.authenticate("github", {failureRedirect: "/login"}) ,async (req, res) => { 
+    req.session.user = req.user;
+    req.session.login = true;
+    res.redirect("/products");
 })
 
 module.exports = router;

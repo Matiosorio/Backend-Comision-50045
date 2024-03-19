@@ -41,8 +41,8 @@ router.post("/login", async (req, res) => {
 
 //Passport
 
-router.post("/login", passport.authenticate("login", {failureRedirect: "api/sessions/faillogin"}, async (req, res) => {
-    if(!req.user) return res.status(400).send({status: "error"});
+router.post("/login", passport.authenticate("login", { failureRedirect: "/api/sessions/faillogin" }), async (req, res) => {
+    if (!req.user) return res.status(400).send({ status: "error" });
 
     req.session.user = {
         first_name: req.user.first_name,
@@ -55,17 +55,17 @@ router.post("/login", passport.authenticate("login", {failureRedirect: "api/sess
 
     res.redirect("/products");
 
-}))
+})
 
 router.get("faillogin", async (req, res) => {
-    res.send({error: "Error en el login"});
+    res.send({ error: "Error en el login" });
 })
 
 
 //Logout
 
 router.get("/logout", (req, res) => {
-    if(req.session.login) {
+    if (req.session.login) {
         req.session.destroy();
     }
     res.redirect("/login");

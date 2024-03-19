@@ -11,7 +11,7 @@ const userRouter = require("./routes/user.router.js");
 const sessionRouter = require("./routes/sessions.router.js");
 const socket = require("socket.io");
 const MongoStore = require("connect-mongo");
-const { initialize } = require("passport");
+//const { initialize } = require("passport");
 const initializePassport = require("./config/passport.config.js");
 const passport = require("passport");
 require("./database.js");

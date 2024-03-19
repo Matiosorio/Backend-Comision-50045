@@ -47,9 +47,9 @@ router.post("/", passport.authenticate("register", {failureRedirect: "/failedreg
         email: req.user.email
     };
 
-    req.session.login = true;
-
-    res.redirect("/login");
+    //req.session.login = true;
+    res.send('Usuario creado exitosamente. ¡Bienvenido! <a href="/login">Iniciar sesión</a>');
+    //res.redirect("/login");
 })
 
 router.get("failedregister", (req, res) => {

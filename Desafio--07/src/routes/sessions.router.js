@@ -1,52 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const UserModel = require("../models/user.model.js");
-const { isValidPassword } = require("../utils/hashbcrypt.js");
 const passport = require("passport");
+const SessionController = require("../controllers/session.controller.js");
+const sessionController = new SessionController();
 
-//Login
+// Login
+router.post("/login", sessionController.login);
 
-//Passport
+// Ruta para manejar el fallo en el inicio de sesión
+router.get("/faillogin", sessionController.failLogin);
 
-router.post("/login", passport.authenticate("login", { failureRedirect: "/api/sessions/faillogin" }), async (req, res) => {
-    if (!req.user) return res.status(400).send({ status: "error" });
+// Logout
+router.get("/logout", sessionController.logout);
 
-    req.session.user = {
-        first_name: req.user.first_name,
-        last_name: req.user.last_name,
-        age: req.user.age,
-        email: req.user.email
-    };
-
-    req.session.login = true;
-
-    res.redirect("/products");
-
-})
-
-router.get("faillogin", async (req, res) => {
-    res.send({ error: "Error en el login" });
-})
-
-
-//Logout
-
-router.get("/logout", (req, res) => {
-    if (req.session.login) {
-        req.session.destroy();
-    }
-    res.redirect("/login");
-})
-
-//Versión Github
-
-router.get("/github", passport.authenticate("github", { scope: ["user:email"] }), async (req, res) => {
-})
-
-router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }), async (req, res) => {
-    req.session.user = req.user;
-    req.session.login = true;
-    res.redirect("/products");
-})
+// Rutas relacionadas con OAuth (por ejemplo, GitHub)
+router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
+router.get("/githubcallback", sessionController.githubCallback);
 
 module.exports = router;

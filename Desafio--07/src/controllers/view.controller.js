@@ -1,114 +1,90 @@
 const ProductModel = require("../models/product.model.js");
 const CartRepository = require("../repositories/cart.repository.js");
 const cartRepository = new CartRepository();
+const ProductRepository = require("../repositories/product.repository.js");
+const productRepository = new ProductRepository();
+
 
 class ViewsController {
-    async renderProducts(req, res) {
+    constructor() {} 
+
+    async getProductsView(req, res) {
         try {
-            const { page = 1, limit = 3 } = req.query;
+            if (!req.session.login) {
+                return res.redirect("/login");
+            }
 
-            const skip = (page - 1) * limit;
-
-            const products = await ProductModel
-                .find()
-                .skip(skip)
-                .limit(limit);
-
-            const totalProducts = await ProductModel.countDocuments();
-
-            const totalPages = Math.ceil(totalProducts / limit);
-
-            const hasPrevPage = page > 1;
-            const hasNextPage = page < totalPages;
-
-
-            const newArray = productos.map(producto => {
-                const { _id, ...rest } = producto.toObject();
-                return { id: _id, ...rest }; // Agregar el ID al objeto
+            const { page = 1, limit = 2 } = req.query;
+            const products = await productRepository.getProducts({
+                page: parseInt(page),
+                limit: parseInt(limit)
             });
 
+            const newArray = products.docs.map(product => {
+                const { _id, ...rest } = product.toObject();
+                return rest;
+            });
 
-            const cartId = req.user.cart.toString();
-            //console.log(cartId);
+            // Verificar si el usuario es administrador
+            const isAdmin = req.session.user && req.session.user.role === "admin";
 
+            // Renderizar la vista de productos con un mensaje de bienvenida diferente
             res.render("products", {
-                productos: nuevoArray,
-                hasPrevPage,
-                hasNextPage,
-                prevPage: page > 1 ? parseInt(page) - 1 : null,
-                nextPage: page < totalPages ? parseInt(page) + 1 : null,
-                currentPage: parseInt(page),
-                totalPages,
-                cartId
+                user: req.session.user,
+                isAdmin: isAdmin,
+                products: newArray,
+                hasPrevPage: products.hasPrevPage,
+                hasNextPage: products.hasNextPage,
+                prevPage: products.prevPage,
+                nextPage: products.nextPage,
+                currentPage: products.page,
+                totalPages: products.totalPages
             });
 
         } catch (error) {
             console.error("Error al obtener productos", error);
             res.status(500).json({
                 status: 'error',
-                error: "Error interno del servidor"
+                error: "Error del servidor"
             });
         }
     }
 
-    async renderCart(req, res) {
+    async getCartsView(req, res) {
         const cartId = req.params.cid;
+
         try {
             const cart = await cartRepository.getCartById(cartId);
 
             if (!cart) {
-                console.log("No existe cart con el id seleccionado");
+                console.log("No existe el cart con el ID especificado");
                 return res.status(404).json({ error: "Cart no encontrado" });
             }
 
+            const productsInCart = cart.products.map(item => ({
+                product: item.product.toObject(),
+                quantity: item.quantity
+            }));
 
-            let totalCompra = 0;
-
-            const productosInCart = cart.products.map(item => {
-                const product = item.product.toObject();
-                const quantity = item.quantity;
-                const totalPrice = product.price * quantity;
-
-                
-                totalCompra += totalPrice;
-
-                return {
-                    product: { ...product, totalPrice },
-                    quantity,
-                    cartId
-                };
-            });
-
-            res.render("carts", { productos: productosEnCarrito, totalCompra, cartId });
+            res.render("carts", { products: productsInCart });
         } catch (error) {
-            console.error("Error al obtener el carrito", error);
-            res.status(500).json({ error: "Error interno del servidor" });
+            console.error("Error al obtener el cart", error);
+            res.status(500).json({ error: "Error del servidor" });
         }
     }
 
-    async renderLogin(req, res) {
+    getLoginView(req, res) {
+        if (req.session.login) {
+            return res.redirect("/products");
+        }
         res.render("login");
     }
 
-    async renderRegister(req, res) {
-        res.render("register");
-    }
-
-    async renderRealTimeProducts(req, res) {
-        try {
-            res.render("realtimeproducts");
-        } catch (error) {
-            console.log("Error en la vista real time", error);
-            res.status(500).json({ error: "Error interno del servidor" });
+    getRegisterView(req, res) {
+        if (req.session.login) {
+            return res.redirect("/login");
         }
-    }
-
-    async renderChat(req, res) {
-        res.render("chat");
-    }
-
-    async renderHome(req, res) {
-        res.render("home");
+        res.render("register");
     }
 }
 

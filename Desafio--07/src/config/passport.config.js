@@ -50,6 +50,14 @@ const initializePassport = () => {
             }
 
             if(!isValidPassword(password, user)) return done(null, false);
+
+            // Agregar lógica de asignación de roles
+            if (email.endsWith("@admin.com")) {
+                user.role = "admin";
+            } else {
+                user.role = "user";
+            }
+
             return done(null, user);
         } catch (error) {
             return done(error);

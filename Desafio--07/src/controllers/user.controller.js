@@ -7,6 +7,11 @@ class UserController {
     passport.authenticate("register", { failureRedirect: "/api/users/failedregister" })(req, res, async () => {
       if (!req.user) return res.status(400).send({ status: "error" });
 
+      //Verificar si el correo electrónico termina de cierto modo para asignar el rol de administrador
+      //const isAdmin = req.user.email.endsWith("@admin.com");
+      //req.user.role = isAdmin ? "admin" : "user";
+
+    
       req.session.user = {
         first_name: req.user.first_name,
         last_name: req.user.last_name,

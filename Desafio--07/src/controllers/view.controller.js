@@ -14,7 +14,7 @@ class ViewsController {
                 return res.redirect("/login");
             }
 
-            const { page = 1, limit = 2 } = req.query;
+            const { page = 1, limit = 3 } = req.query;
             const products = await productRepository.getProducts({
                 page: parseInt(page),
                 limit: parseInt(limit)

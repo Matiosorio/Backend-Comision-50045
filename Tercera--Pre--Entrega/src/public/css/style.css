@@ -1,0 +1,118 @@
+h1, h2 {
+    color: black;
+    text-align: center;
+}
+
+.cardsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 960px; 
+    margin: 0 auto; 
+}
+
+.card {
+    width: 200px; /* Puedes ajustar el tamaño según tus preferencias */
+    height: 300px; /* Puedes ajustar el tamaño según tus preferencias */
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease; 
+}
+
+.card h3 {
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto; 
+    margin-right: auto; 
+    max-width: 400px; /
+}
+
+form input,
+form select {
+    max-width: 300px;
+    width: 100%;
+    padding: 8px;
+    margin: 10px auto; 
+    box-sizing: border-box;
+    display: block; 
+}
+
+form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: block; 
+    margin: 0 auto; 
+}
+
+/* Agrega estilos al contenedor principal */
+.products-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos para el encabezado principal */
+.products-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el rol del usuario */
+.products-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+
+/* Estilos para el botón de logout */
+.products-container .logout-btn {
+    background-color: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-link {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.pagination-info {
+    margin-top: 10px;
+}
+
+.carousel-item img {
+    width: 100%; /* Establece el ancho al 100% del contenedor */
+    height: 400px; /* Permite que la altura se ajuste automáticamente para mantener la proporción */
+  }

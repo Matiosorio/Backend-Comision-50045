@@ -1,0 +1,17 @@
+<div class="products-container">
+    <h1>Shopping Cart</h1>
+
+    <div class="cardsContainer">
+        <h3>Productos adquiridos</h3>
+        {{#each products}}
+        <div class="card">
+            <p> Producto: {{this.product.title}} </p>
+            <p> Cantidad: {{this.quantity}} </p>
+        </div>
+        {{/each}}
+    </div>
+
+    <div class="back-to-products">
+        <a href="/products">Volver a Productos</a>
+    </div>
+</div>

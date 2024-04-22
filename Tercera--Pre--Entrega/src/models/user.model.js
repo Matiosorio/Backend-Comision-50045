@@ -27,6 +27,12 @@ const userSchema = mongoose.Schema({
         type: Number, 
         required: true
     },
+
+    cart: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cart'
+    },
+    
     role: {
         type: String,
         default: "usuario" // Valor predeterminado para los nuevos usuarios

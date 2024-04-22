@@ -1,13 +1,17 @@
-const authMiddleware = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        // Si el usuario está autenticado, adjuntar la información del usuario a la solicitud
-        req.user = req.session.user;
-        next(); // Continuar con la siguiente función de middleware
+const isAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.role === "admin") {
+        next();
     } else {
-        // Si el usuario no está autenticado, redirigir al inicio de sesión
-        res.redirect("/login");
+        res.status(403).json({ error: "Acceso no autorizado" });
     }
 };
 
-module.exports = authMiddleware;
-  
+const isUser = (req, res, next) => {
+    if (req.session.user && req.session.user.role === "user") {
+        next();
+    } else {
+        res.status(403).json({ error: "Acceso no autorizado" });
+    }
+};
+
+module.exports = { isAdmin, isUser };

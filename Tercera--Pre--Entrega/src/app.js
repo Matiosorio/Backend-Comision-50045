@@ -28,7 +28,7 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: "mongodb+srv://matiasosorio:coderhouse@cluster0.loeu3rw.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0", ttl: 100
     })
-}))
+}));
 app.use(cors());
 
 //Passport

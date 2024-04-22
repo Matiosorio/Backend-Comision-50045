@@ -1,17 +1,17 @@
 <h1>Mi Perfil</h1>
 
 <div class="profile-card">
-  <p>Bienvenido, {{user.nombre}} {{user.apellido}}!</p>
+  <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
   <p>Rol: {{user.role}}</p>
 
-  <form action="/api/users/logout" method="POST">
+  <form action="/api/sessions/logout" method="GET">
     <button class="btnMios" type="submit">Logout</button>
   </form>
 
-  {{#if this.isAdmin}}
+  {{#if isAdmin}}
     <a class="btnMios" href="/realtimeproducts">Modificar Productos</a>
-  {{else}}
+{{else}}
     <a class="btnMios" href="/chat">Chat en vivo</a>
     <a class="btnMios" href="/products">Tienda</a>
-  {{/if}}
+{{/if}}
 </div>

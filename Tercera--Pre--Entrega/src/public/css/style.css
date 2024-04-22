@@ -3,6 +3,45 @@ h1, h2 {
     text-align: center;
 }
 
+/* HEADER */
+/* Estilo para el navbar */
+.navbar {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 1rem; /* Espaciado interno */
+}
+
+/* Estilo para el logo */
+.navbar img {
+    width: 150px; /* Ancho máximo del logo */
+    /*  */height: auto; /* Altura automática para mantener la proporción */
+    margin-right: 1rem; /* Espaciado a la derecha */
+}
+
+/* Estilo para los enlaces del navbar */
+.navbar-nav .nav-item {
+    margin-right: 0.5rem; /* Espaciado entre elementos */
+}
+
+/* Estilo para los enlaces del navbar */
+.navbar-nav .nav-link {
+    color: #212529; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilo para los enlaces del navbar cuando se les hace hover */
+.navbar-nav .nav-link:hover {
+    color: #007bff; /* Color del texto al hacer hover */
+}
+
+nav li a {
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 15px;
+    color: black;
+    padding: 0 15px;
+}
+
+
 .cardsContainer {
     display: flex;
     justify-content: space-around;

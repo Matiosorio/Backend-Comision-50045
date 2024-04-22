@@ -73,22 +73,39 @@ class ViewsController {
         }
     }
 
-    getLoginView(req, res) {
-        if (req.session.login) {
-            return res.redirect("/products");
-        }
+    async getLoginView(req, res) {
         res.render("login");
     }
 
-    getRegisterView(req, res) {
-        if (req.session.login) {
-            return res.redirect("/login");
-        }
+    async getRegisterView(req, res) {
+        // if (req.session.login) {
+        //     return res.redirect("/login");
+        // }
         res.render("register");
     }
 
-    async renderHome(req, res) {
+    async getHomeView(req, res) {
         res.render("home");
+    }
+
+    async realTimeProductsView (req, res) {
+        try {
+            res.render("realtimeproducts");
+        } catch (error) {
+            console.log("error en la vista real time", error);
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
+    }
+
+    async chatView (req, res) {
+        res.render("chat");
+    }
+
+    async profileView(req, res) {
+        console.log("Llamada a profileView"); // Agregamos un punto de depuración
+        const user = req.session.user;
+        const isAdmin = user && user.role === "admin";
+        res.render("profile", { user, isAdmin });
     }
     
 }

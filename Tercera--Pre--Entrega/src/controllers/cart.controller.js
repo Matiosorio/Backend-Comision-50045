@@ -119,6 +119,52 @@ class CartController {
             });
         }
     }
+
+    async finalizePurchase(req, res) {
+        const cartId = req.params.cid;
+        try {
+            // Obtener el carrito y sus productos
+            const cart = await cartRepository.getCartById(cartId);
+            const products = cart.products;
+
+            // Inicializar un arreglo para almacenar los productos no disponibles
+            const unavailableProducts = [];
+
+            // Verificar el stock y actualizar los productos disponibles
+            for (const item of products) {
+                const productId = item.productId; // Ajustar según el modelo de datos
+                const product = await productRepository.getProductById(productId);
+                if (product.stock >= item.quantity) {
+                    // Si hay suficiente stock, restar la cantidad del producto
+                    product.stock -= item.quantity;
+                    await product.save();
+                } else {
+                    // Si no hay suficiente stock, agregar el ID del producto al arreglo de no disponibles
+                    unavailableProducts.push(productId);
+                }
+            }
+
+            // Crear un ticket con los datos de la compra
+            const ticket = new TicketModel({
+                code: generateUniqueCode(), // Implementar según corresponda
+                purchaseDateTime: new Date(),
+                amount: calculateTotal(cart.products), // Implementar según corresponda
+                purchaser: cart.userId // Ajustar según el modelo de datos
+            });
+            await ticket.save();
+
+            // Eliminar del carrito los productos que sí se compraron
+            cart.products = cart.products.filter(item => !unavailableProducts.includes(item.productId));
+
+            // Guardar el carrito actualizado en la base de datos
+            await cart.save();
+
+            res.status(200).json({ unavailableProducts });
+        } catch (error) {
+            console.error('Error al procesar la compra:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
 }
 
 module.exports = CartController;

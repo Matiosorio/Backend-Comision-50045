@@ -3,6 +3,7 @@ const router = express.Router();
 const ProductController = require("../controllers/product.controller.js");
 const productController = new ProductController(); 
 const authMiddleware = require('../middleware/auth.middleware.js');
+const { isAdmin } = require('../middleware/auth.middleware.js');
 
 /*// Middleware de autenticación
 router.use((req, res, next) => {
@@ -13,7 +14,7 @@ router.use((req, res, next) => {
     res.redirect("/login");
 });*/
 
-router.use(authMiddleware);
+router.use(isAdmin);
 
 router.get("/", productController.getProducts);
 router.get("/:pid", productController.getProductById);

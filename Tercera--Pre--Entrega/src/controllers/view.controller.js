@@ -6,7 +6,7 @@ const productRepository = new ProductRepository();
 
 
 class ViewsController {
-    constructor() {} 
+    constructor() { }
 
     async getProductsView(req, res) {
         try {
@@ -88,7 +88,7 @@ class ViewsController {
         res.render("home");
     }
 
-    async realTimeProductsView (req, res) {
+    async realTimeProductsView(req, res) {
         try {
             res.render("realtimeproducts");
         } catch (error) {
@@ -97,17 +97,20 @@ class ViewsController {
         }
     }
 
-    async chatView (req, res) {
+    async chatView(req, res) {
         res.render("chat");
     }
 
     async profileView(req, res) {
-        console.log("Llamada a profileView"); // Agregamos un punto de depuración
+        if (!req.session.login) {
+            return res.status(403).json({ error: "Acceso no autorizado" });
+        }
+
         const user = req.session.user;
         const isAdmin = user && user.role === "admin";
         res.render("profile", { user, isAdmin });
     }
-    
+
 }
 
 module.exports = ViewsController;

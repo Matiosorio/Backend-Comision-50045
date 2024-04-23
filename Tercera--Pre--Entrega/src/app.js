@@ -9,7 +9,7 @@ const viewsRouter = require("./routes/views.router.js");
 const handlebars = require("express-handlebars");
 const userRouter = require("./routes/user.router.js");
 const sessionRouter = require("./routes/sessions.router.js");
-const socket = require("socket.io");
+//const socket = require("socket.io");
 const MongoStore = require("connect-mongo");
 const cors = require("cors");
 //const { initialize } = require("passport");
@@ -48,7 +48,11 @@ app.use("/api/users", userRouter);
 app.use("/api/sessions", sessionRouter);
 app.use("/", viewsRouter);
 
-app.listen(PUERTO, () => {
-    console.log(`Escuchando en el http://localhost:${PUERTO}`);
+const server = app.listen(PUERTO, () => {
+    console.log(`Servidor escuchando en el puerto ${PUERTO}`);
 });
+
+///Websockets: 
+const SocketManager = require("./sockets/socketManager.js");
+new SocketManager(server);
 

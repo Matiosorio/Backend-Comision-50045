@@ -1,6 +1,6 @@
 <!-- Vista de Productos -->
 <div class="products-container">
-    <h1>Bienvenido, {{ user.first_name }} {{ user.last_name }}!</h1>
+    <h1>Bienvenido, {{user.first_name}} {{user.last_name}}!</h1>
     <a href="/carts/{{cartId}}" class="ms-5">
         <i class="bi bi-cart"></i>
     </a>
@@ -14,9 +14,9 @@
             <p>{{description}}</p>
             <p>Precio: ${{price}}</p>
             <p>Categoría: {{category}} </p>
-            <form action="/api/carts/{{../cartId}}/product/{{id}}" method="POST">
-                    <button class="btnMios" type="submit">Agregar al Carrito</button>
-                </form>
+            <form action="/api/carts/{{../cartId}}/product/{{pid}}" method="POST">
+                <button class="btnMios" type="submit">Agregar al Carrito</button>
+            </form>
         </div>
         {{/each}}
     </div>

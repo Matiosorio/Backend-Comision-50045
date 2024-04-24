@@ -26,7 +26,7 @@ class ViewsController {
 
             // Renderizar la vista de productos con un mensaje de bienvenida diferente
             res.render("products", {
-                //user: req.session.user,
+                user: req.session.user,
                 //isAdmin: isAdmin,
                 products: newArray,
                 hasPrevPage: products.hasPrevPage,
@@ -56,13 +56,19 @@ class ViewsController {
                 console.log("No existe el cart con el ID especificado");
                 return res.status(404).json({ error: "Cart no encontrado" });
             }
+    
+            const productsInCart = cart.products.map(item => {
+                const product = item.product.toObject();
+                const quantity = item.quantit;
 
-            const productsInCart = cart.products.map(item => ({
-                product: item.product.toObject(),
-                quantity: item.quantity
-            }));
-
-            res.render("carts", { products: productsInCart });
+                return {
+                    product: { ...product, totalPrice },
+                    quantity,
+                    cartId
+                };
+            });
+    
+            res.render("carts", { cartId: cartId, products: productsInCart }); // Incluye cartId en el contexto de datos
         } catch (error) {
             console.error("Error al obtener el cart", error);
             res.status(500).json({ error: "Error del servidor" });

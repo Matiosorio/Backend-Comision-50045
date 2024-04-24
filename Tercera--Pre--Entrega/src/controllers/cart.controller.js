@@ -35,7 +35,7 @@ class CartController {
 
         try {
             const updateCart = await cartRepository.addProductToCart(cartId, productId, quantity);
-            res.json(updateCart.products);
+            res.redirect(`/carts/${cartId}`)
         } catch (error) {
             console.error("Error al agregar el producto al carrito", error);
             res.status(500).json({ error: "Error del servidor" });

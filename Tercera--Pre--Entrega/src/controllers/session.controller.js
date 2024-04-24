@@ -17,8 +17,13 @@ class SessionController {
                 last_name: req.user.last_name,
                 age: req.user.age,
                 email: req.user.email,
-                role: isAdmin ? "admin" : "user"
+                role: isAdmin ? "admin" : "user",
+                cartId: req.user.cart ? req.user.cart._id : null
             };
+
+            console.log("Contenido de req.session.user:", req.session.user);
+            // Agregar registro para imprimir req.user.cart
+            console.log("Contenido de req.user.cart:", req.user.cart);
 
             req.session.login = true;
 

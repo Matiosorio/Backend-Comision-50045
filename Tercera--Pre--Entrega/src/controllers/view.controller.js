@@ -18,11 +18,17 @@ class ViewsController {
 
             const newArray = products.docs.map(product => {
                 const { _id, ...rest } = product.toObject();
-                return rest;
+                return { id: _id, ...rest };
             });
 
             // Verificar si el usuario es administrador
             //const isAdmin = req.session.user && req.session.user.role === "admin";
+
+            // Verificar si el cartId está definido
+            const cartId = req.session.user.cartId || null;
+
+            // Agregar registro para imprimir el cartId
+        console.log("Cart ID en el controlador de vistas:", cartId);
 
             // Renderizar la vista de productos con un mensaje de bienvenida diferente
             res.render("products", {
@@ -34,7 +40,8 @@ class ViewsController {
                 prevPage: products.prevPage,
                 nextPage: products.nextPage,
                 currentPage: products.page,
-                totalPages: products.totalPages
+                totalPages: products.totalPages,
+                cartId: cartId
             });
 
         } catch (error) {
@@ -48,33 +55,36 @@ class ViewsController {
 
     async cartsView(req, res) {
         const cartId = req.params.cid;
-    
+
+        console.log("ID del carrito recibido:", cartId);
+
         try {
             const cart = await cartRepository.getCartProducts(cartId);
-    
+
             if (!cart) {
                 console.log("No existe el cart con el ID especificado");
                 return res.status(404).json({ error: "Cart no encontrado" });
             }
-    
+
             const productsInCart = cart.products.map(item => {
                 const product = item.product.toObject();
                 const quantity = item.quantit;
 
                 return {
-                    product: { ...product, totalPrice },
+                    product: { ...product, quantity },
                     quantity,
                     cartId
                 };
             });
-    
-            res.render("carts", { cartId: cartId, products: productsInCart }); // Incluye cartId en el contexto de datos
+
+            // Incluye req.session.user en el contexto de datos
+            res.render("carts", { cartId: cartId, products: productsInCart, user: req.session.user });
         } catch (error) {
             console.error("Error al obtener el cart", error);
             res.status(500).json({ error: "Error del servidor" });
         }
     }
-    
+
 
     async getLoginView(req, res) {
         res.render("login");

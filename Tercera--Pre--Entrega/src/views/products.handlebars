@@ -1,5 +1,7 @@
 <!-- Vista de Productos -->
 <div class="products-container">
+     <!-- Agregar registro para imprimir el cartId -->
+    <p>Cart ID: {{cartId}}</p>
     <h1>Bienvenido, {{user.first_name}} {{user.last_name}}!</h1>
     <a href="/carts/{{cartId}}" class="ms-5">
         <i class="bi bi-cart"></i>
@@ -14,7 +16,7 @@
             <p>{{description}}</p>
             <p>Precio: ${{price}}</p>
             <p>Categoría: {{category}} </p>
-            <form action="/api/carts/{{../cartId}}/product/{{pid}}" method="POST">
+            <form action="/api/carts/{{../cartId}}/product/{{id}}" method="POST">
                 <button class="btnMios" type="submit">Agregar al Carrito</button>
             </form>
         </div>

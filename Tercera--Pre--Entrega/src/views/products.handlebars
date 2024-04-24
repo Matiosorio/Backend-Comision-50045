@@ -1,7 +1,9 @@
 <!-- Vista de Productos -->
 <div class="products-container">
     <h1>Bienvenido, {{ user.first_name }} {{ user.last_name }}!</h1>
-    <p>Rol: {{ user.role }}</p>
+    <a href="/carts/{{cartId}}" class="ms-5">
+        <i class="bi bi-cart"></i>
+    </a>
 
     <h2>Productos Disponibles</h2>
 
@@ -12,21 +14,23 @@
             <p>{{description}}</p>
             <p>Precio: ${{price}}</p>
             <p>Categoría: {{category}} </p>
-            <button> Agregar al Carrito </button>
+            <form action="/api/carts/{{../cartId}}/product/{{id}}" method="POST">
+                    <button class="btnMios" type="submit">Agregar al Carrito</button>
+                </form>
         </div>
         {{/each}}
     </div>
 
-<!-- Paginación -->
-<div class="pagination-container">
-    {{#if hasPrevPage}}
+    <!-- Paginación -->
+    <div class="pagination-container">
+        {{#if hasPrevPage}}
         <a href="/products?page={{prevPage}}" class="pagination-link">Anterior</a>
-    {{/if}}
-    {{#if hasNextPage}}
+        {{/if}}
+        {{#if hasNextPage}}
         <a href="/products?page={{nextPage}}" class="pagination-link">Siguiente</a>
-    {{/if}} 
-    <p class="pagination-info">Página {{currentPage}} de {{totalPages}}</p>
-</div>
+        {{/if}}
+        <p class="pagination-info">Página {{currentPage}} de {{totalPages}}</p>
+    </div>
 
     <!-- Botón de Logout -->
     <a href="/api/sessions/logout" class="logout-btn">Logout</a>

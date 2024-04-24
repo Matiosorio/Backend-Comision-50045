@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ProductController = require("../controllers/product.controller.js");
 const productController = new ProductController(); 
-const authMiddleware = require('../middleware/auth.middleware.js');
+//const authMiddleware = require('../middleware/auth.middleware.js');
 const { isAdmin } = require('../middleware/auth.middleware.js');
 
 /*// Middleware de autenticación

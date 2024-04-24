@@ -25,6 +25,7 @@ class ProductRepository {
             });
 
             await newProduct.save();
+            return newProduct;
         } catch (error) {
             console.log("Error al agregar un producto", error);
             throw error;
@@ -115,6 +116,7 @@ class ProductRepository {
 
             if (!deletedProduct) {
                 throw new Error("Producto no encontrado");
+                return null;
             }
             console.log("Producto eliminado");
             return deletedProduct;

@@ -8,12 +8,8 @@ const productRepository = new ProductRepository();
 class ViewsController {
     constructor() { }
 
-    async getProductsView(req, res) {
+    async productsView(req, res) {
         try {
-            if (!req.session.login) {
-                return res.redirect("/login");
-            }
-
             const { page = 1, limit = 3 } = req.query;
             const products = await productRepository.getProducts({
                 page: parseInt(page),
@@ -26,12 +22,12 @@ class ViewsController {
             });
 
             // Verificar si el usuario es administrador
-            const isAdmin = req.session.user && req.session.user.role === "admin";
+            //const isAdmin = req.session.user && req.session.user.role === "admin";
 
             // Renderizar la vista de productos con un mensaje de bienvenida diferente
             res.render("products", {
-                user: req.session.user,
-                isAdmin: isAdmin,
+                //user: req.session.user,
+                //isAdmin: isAdmin,
                 products: newArray,
                 hasPrevPage: products.hasPrevPage,
                 hasNextPage: products.hasNextPage,
@@ -50,12 +46,12 @@ class ViewsController {
         }
     }
 
-    async getCartsView(req, res) {
+    async cartsView(req, res) {
         const cartId = req.params.cid;
-
+    
         try {
-            const cart = await cartRepository.getCartById(cartId);
-
+            const cart = await cartRepository.getCartProducts(cartId);
+    
             if (!cart) {
                 console.log("No existe el cart con el ID especificado");
                 return res.status(404).json({ error: "Cart no encontrado" });
@@ -72,6 +68,7 @@ class ViewsController {
             res.status(500).json({ error: "Error del servidor" });
         }
     }
+    
 
     async getLoginView(req, res) {
         res.render("login");

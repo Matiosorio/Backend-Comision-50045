@@ -15,10 +15,10 @@ class CartController {
         }
     }
 
-    async getCartById(req, res) {
+    async getCartProducts(req, res) {
         const cartId = req.params.cid;
         try {
-            const products = await cartRepository.getCartById(cartId);
+            const products = await cartRepository.getCartProducts(cartId);
             if (!products) {
                 return res.status(404).json({ error: "Cart no encontrado" });
             }
@@ -63,12 +63,12 @@ class CartController {
         }
     }
 
-    async updatedCart(req, res) {
+    async updateProductsInCart(req, res) {
         const cartId = req.params.cid;
         const updatedProducts = req.body;
 
         try {
-            const updateCart = await cartRepository.updatedCart(cartId, updatedProducts);
+            const updateCart = await cartRepository.updateProductstInCart(cartId, updatedProducts);
             res.json(updateCart);
         } catch (error) {
             console.error('Error al actualizar los productos del carrito', error);

@@ -12,7 +12,7 @@ class CartRepository {
         }
     }
 
-    async getCartById(cartId) {
+    async getCartProducts(cartId) {
         try {
             const cart = await CartModel.findById(cartId);
 
@@ -30,7 +30,7 @@ class CartRepository {
 
     async addProductToCart(cartId, productId, quantity = 1) {
         try {
-            const cart = await this.getCartById(cartId);
+            const cart = await this.getCartProducts(cartId);
             const productExist = cart.products.find(item => item.product.toString() === productId);
 
             if (productExist) {
@@ -66,7 +66,7 @@ class CartRepository {
         }
     }
 
-    async updatedCart(cartId, updatedProducts) {
+    async updateProductstInCart(cartId, updatedProducts) {
         try {
             const cart = await CartModel.findById(cartId);
 
@@ -95,7 +95,7 @@ class CartRepository {
                 throw new Error('Cart no encontrado');
             }
 
-            const productIndex = cart.products.findIndex(item => item.product._id.toString() === productId);
+            const productIndex = cart.products.findIndex(item => item._id.toString() === productId);
 
             if (productIndex !== -1) {
                 cart.products[productIndex].quantity = newQuantity;

@@ -9,10 +9,10 @@ router.use(isUser);
 
 
 router.post("/", cartController.newCart);
-router.get("/:cid", cartController.getCartById);
+router.get("/:cid", cartController.getCartProducts);
 router.post("/:cid/product/:pid", cartController.addProductToCart);
 router.delete('/:cid/product/:pid', cartController.deleteCartProduct);
-router.put('/:cid', cartController.updatedCart);
+router.put('/:cid', cartController.updateProductsInCart);
 router.put('/:cid/product/:pid', cartController.updateProductQuantity);
 router.delete('/:cid', cartController.emptyCart);
 router.post('/:cid/purchase', cartController.finalizePurchase);

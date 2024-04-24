@@ -2,20 +2,21 @@ const express = require("express");
 const session = require("express-session");
 const app = express();
 const PUERTO = 8080;
+const handlebars = require("express-handlebars");
+const MongoStore = require("connect-mongo");
+const cors = require("cors");
+const initializePassport = require("./config/passport.config.js");
+const passport = require("passport");
+require("./database.js");
 
 const productsRouter = require("./routes/products.router.js");
 const cartsRouter = require("./routes/carts.router.js");
 const viewsRouter = require("./routes/views.router.js");
-const handlebars = require("express-handlebars");
 const userRouter = require("./routes/user.router.js");
 const sessionRouter = require("./routes/sessions.router.js");
+
 //const socket = require("socket.io");
-const MongoStore = require("connect-mongo");
-const cors = require("cors");
 //const { initialize } = require("passport");
-const initializePassport = require("./config/passport.config.js");
-const passport = require("passport");
-require("./database.js");
 
 //Middleware
 app.use(express.urlencoded({ extended: true }));

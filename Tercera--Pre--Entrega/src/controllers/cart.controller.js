@@ -4,7 +4,7 @@ const cartRepository = new CartRepository();
 const ProductRepository = require("../repositories/product.repository.js");
 const productRepository = new ProductRepository();
 const TicketModel = require("../models/ticket.model.js");
-const { generateUniqueCode, calcularTotal } = require("../utils/cartUtils.js");
+const { generateUniqueCode, calculateTotal } = require("../utils/cartUtils.js");
 
 
 class CartController {
@@ -135,7 +135,7 @@ class CartController {
 
             // Verificar el stock y actualizar los productos disponibles
             for (const item of products) {
-                const productId = item.productId; // Ajustar según el modelo de datos
+                const productId = item.product;
                 const product = await productRepository.getProductById(productId);
                 if (product.stock >= item.quantity) {
                     // Si hay suficiente stock, restar la cantidad del producto
@@ -147,27 +147,31 @@ class CartController {
                 }
             }
 
+            const userWithCart = await UserModel.findOne({ cart: cartId });
+
             // Crear un ticket con los datos de la compra
             const ticket = new TicketModel({
-                code: generateUniqueCode(), // Implementar según corresponda
+                code: generateUniqueCode(),
                 purchase_datetime: new Date(),
-                amount: calculateTotal(cart.products), // Implementar según corresponda
-                purchaser: req.user.email // Ajustar según el modelo de datos
+                amount: calculateTotal(cart.products),
+                purchaser: req.user.email
             });
             await ticket.save();
 
             // Eliminar del carrito los productos que sí se compraron
-            cart.products = cart.products.filter(item => !unavailableProducts.includes(item.productId));
+            cart.products = cart.products.filter(item => unavailableProducts.some(productId => productId.equals(item.product)));
 
             // Guardar el carrito actualizado en la base de datos
             await cart.save();
 
-            res.status(200).json({ unavailableProducts });
+            res.redirect(`/carts/${cartId}`);
+            //res.status(200).json({ unavailableProducts });
         } catch (error) {
             console.error('Error al procesar la compra:', error);
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
+
 }
 
 module.exports = CartController;

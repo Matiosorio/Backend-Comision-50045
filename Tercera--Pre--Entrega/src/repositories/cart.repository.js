@@ -31,16 +31,14 @@ class CartRepository {
     async addProductToCart(cartId, productId, quantity = 1) {
         try {
             const cart = await this.getCartProducts(cartId);
-            const productExistIndex = cart.products.findIndex(item => item.product.toString() === productId);
-    
-            if (productExistIndex !== -1) {
-                // Si el producto ya está en el carrito, suma la cantidad
-                cart.products[productExistIndex].quantity += quantity;
+            const productExist = cart.products.find(item => item.product._id.toString() === productId);
+
+            if (productExist) {
+                productExist.quantity += quantity;
             } else {
-                // Si el producto no está en el carrito, agrégalo con la cantidad indicada
                 cart.products.push({ product: productId, quantity });
             }
-    
+
             cart.markModified("products");
             await cart.save();
             return cart;
@@ -49,7 +47,6 @@ class CartRepository {
             throw error;
         }
     }
-    
 
     async deleteCartProduct(cartId, productId) {
         try {
@@ -93,30 +90,28 @@ class CartRepository {
     async updateProductQuantity(cartId, productId, newQuantity) {
         try {
             const cart = await CartModel.findById(cartId);
-    
+
             if (!cart) {
-                throw new Error('Carrito no encontrado');
+                throw new Error('Cart no encontrado');
             }
-    
+
             const productIndex = cart.products.findIndex(item => item._id.toString() === productId);
-    
+
             if (productIndex !== -1) {
                 cart.products[productIndex].quantity = newQuantity;
-
 
                 cart.markModified('products');
 
                 await cart.save();
                 return cart;
             } else {
-                throw new Error('Producto no encontrado en el carrito');
+                throw new Error('Producto no encontrado en el cart');
             }
         } catch (error) {
-            console.error('Error al actualizar la cantidad del producto:', error.message);
+            console.error('Error al actualizar la cantidad del producto', error);
             throw error;
         }
     }
-    
 
     async emptyCart(cartId) {
         try {

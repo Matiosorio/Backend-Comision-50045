@@ -3,6 +3,9 @@ const CartRepository = require("../repositories/cart.repository.js");
 const cartRepository = new CartRepository();
 const ProductRepository = require("../repositories/product.repository.js");
 const productRepository = new ProductRepository();
+const TicketModel = require("../models/ticket.model.js");
+const { generateUniqueCode, calcularTotal } = require("../utils/cartUtils.js");
+
 
 class CartController {
     async newCart(req, res) {
@@ -124,7 +127,7 @@ class CartController {
         const cartId = req.params.cid;
         try {
             // Obtener el carrito y sus productos
-            const cart = await cartRepository.getCartById(cartId);
+            const cart = await cartRepository.getCartProducts(cartId);
             const products = cart.products;
 
             // Inicializar un arreglo para almacenar los productos no disponibles
@@ -147,9 +150,9 @@ class CartController {
             // Crear un ticket con los datos de la compra
             const ticket = new TicketModel({
                 code: generateUniqueCode(), // Implementar según corresponda
-                purchaseDateTime: new Date(),
+                purchase_datetime: new Date(),
                 amount: calculateTotal(cart.products), // Implementar según corresponda
-                purchaser: cart.userId // Ajustar según el modelo de datos
+                purchaser: req.user.email // Ajustar según el modelo de datos
             });
             await ticket.save();
 

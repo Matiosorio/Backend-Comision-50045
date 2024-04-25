@@ -66,19 +66,24 @@ class ViewsController {
                 return res.status(404).json({ error: "Cart no encontrado" });
             }
 
+            let totalPurchase = 0
+
             const productsInCart = cart.products.map(item => {
                 const product = item.product.toObject();
-                const quantity = item.quantit;
+                const quantity = item.quantity;
+                const totalPrice = product.price * quantity;
+
+                totalPurchase += totalPrice;
 
                 return {
-                    product: { ...product, quantity },
+                    product: { ...product, totalPrice },
                     quantity,
                     cartId
                 };
             });
 
             // Incluye req.session.user en el contexto de datos
-            res.render("carts", { cartId: cartId, products: productsInCart, user: req.session.user });
+            res.render("carts", { cartId: cartId, products: productsInCart, user: req.session.user, totalPurchase: totalPurchase });
         } catch (error) {
             console.error("Error al obtener el cart", error);
             res.status(500).json({ error: "Error del servidor" });

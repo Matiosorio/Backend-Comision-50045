@@ -12,7 +12,7 @@ h1, h2 {
 
 /* Estilo para el logo */
 .navbar img {
-    width: 150px; /* Ancho máximo del logo */
+    width: 250px; /* Ancho máximo del logo */
     /*  */height: auto; /* Altura automática para mantener la proporción */
     margin-right: 1rem; /* Espaciado a la derecha */
 }

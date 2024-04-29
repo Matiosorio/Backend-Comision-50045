@@ -31,17 +31,6 @@ class SessionController {
         });
     }
 
-    async getCurrentUser(req, res) {
-        try {
-            // Crear un DTO con la información necesaria del usuario
-            const userDTO = new UserDTO(req.user.first_name, req.user.last_name, req.user.role);
-            // Enviar el DTO en lugar del objeto completo del usuario
-            res.status(200).json(userDTO);
-        } catch (error) {
-            res.status(500).json({ error: "Error del servidor" });
-        }
-    }
-
     async failLogin(req, res) {
         res.send({ error: "Error en el inicio de sesión" });
     }

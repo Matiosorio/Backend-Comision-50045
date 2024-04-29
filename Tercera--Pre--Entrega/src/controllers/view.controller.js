@@ -3,6 +3,7 @@ const CartRepository = require("../repositories/cart.repository.js");
 const cartRepository = new CartRepository();
 const ProductRepository = require("../repositories/product.repository.js");
 const productRepository = new ProductRepository();
+const UserDTO = require('../dto/user.dto.js');
 
 
 class ViewsController {
@@ -123,10 +124,9 @@ class ViewsController {
         if (!req.session.login) {
             return res.status(403).json({ error: "Acceso no autorizado" });
         }
-
-        const user = req.session.user;
-        const isAdmin = user && user.role === "admin";
-        res.render("profile", { user, isAdmin });
+    
+        const userDTO = new UserDTO(req.session.user.first_name, req.session.user.last_name, req.session.user.role);
+        res.render("profile", { user: userDTO });
     }
 
 }

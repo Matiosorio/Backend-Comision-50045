@@ -1,7 +1,7 @@
 <h1>Mi Perfil</h1>
 
 <div class="profile-card">
-  <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
+  <p>Bienvenido, {{user.fullname}}!</p>
   <p>Rol: {{user.role}}</p>
 
   <form action="/api/sessions/logout" method="GET">

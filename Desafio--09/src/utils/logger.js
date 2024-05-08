@@ -44,7 +44,7 @@ const loggerProduccion = winston.createLogger({
     transports: [
         new winston.transports.File({
             filename: "./errors.log",
-            level: "error", // Solo registra los niveles de error y fatal
+            level: "info", // Solo registra los niveles de error y fatal
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.json()

@@ -17,6 +17,8 @@ const sessionRouter = require("./routes/sessions.router.js");
 const mockRouter = require("./routes/mock.router.js");
 const errorHandler = require("./middleware/error.js");
 const addLogger = require("./utils/logger.js");
+const configObject = require("./config/config.js");
+const testRouter = require('./routes/test.router.js');
 
 //const socket = require("socket.io");
 //const { initialize } = require("passport");
@@ -55,11 +57,13 @@ app.use("/api/sessions", sessionRouter);
 app.use("/", viewsRouter);
 app.use("/", mockRouter);
 app.use(errorHandler);
+app.use('/api/loggertest', testRouter);
 
 
 const server = app.listen(PUERTO, () => {
     console.log(`Servidor escuchando en el puerto ${PUERTO}`);
 });
+
 
 ///Websockets: 
 const SocketManager = require("./sockets/socketManager.js");

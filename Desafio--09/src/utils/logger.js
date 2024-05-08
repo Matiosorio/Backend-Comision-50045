@@ -26,15 +26,15 @@ const levels = {
 
 // Configuración del logger para desarrollo
 const loggerDesarrollo = winston.createLogger({
-    levels: levels.levels,
+    levels: levels.level,
     transports: [
         new winston.transports.Console({
             level: "debug",
             format: winston.format.combine(
-                winston.format.colorize(),
+                winston.format.colorize({colors: levels.colors}),
                 winston.format.simple()
             )
-        })
+        }),
     ]
 });
 
@@ -44,11 +44,8 @@ const loggerProduccion = winston.createLogger({
     transports: [
         new winston.transports.File({
             filename: "./errors.log",
-            level: "info", // Solo registra los niveles de error y fatal
-            format: winston.format.combine(
-                winston.format.timestamp(),
-                winston.format.json()
-            )
+            level: "info", 
+            format: winston.format.simple()
         })
     ]
 });

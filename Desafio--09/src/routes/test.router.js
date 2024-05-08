@@ -5,7 +5,7 @@ const router = express.Router();
 const addLogger = require("../utils/logger.js");
 
 // Define las rutas para /loggerTest
-router.get('/loggerTest', addLogger, (req, res) => {
+router.get("/", addLogger, (req, res) => {
     // Genera algunos registros de ejemplo
     req.logger.debug('Este es un mensaje de debug');
     req.logger.http('Este es un mensaje HTTP');

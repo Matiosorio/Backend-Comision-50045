@@ -57,7 +57,7 @@ app.use("/api/sessions", sessionRouter);
 app.use("/", viewsRouter);
 app.use("/", mockRouter);
 app.use(errorHandler);
-app.use('/api/loggertest', testRouter);
+app.use("/loggertest", testRouter);
 
 
 const server = app.listen(PUERTO, () => {

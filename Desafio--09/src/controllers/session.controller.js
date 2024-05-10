@@ -23,7 +23,7 @@ class SessionController {
 
             req.logger.debug("Contenido de req.session.user:", req.session.user);
             // Agregar registro para imprimir req.user.cart
-            req.logger.debug("Contenido de req.user.cart:", req.user.cart);
+            //req.logger.debug("Contenido de req.user.cart:", req.user.cart);
 
             req.session.login = true;
 

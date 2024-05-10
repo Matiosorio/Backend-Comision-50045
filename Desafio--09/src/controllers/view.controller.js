@@ -29,7 +29,7 @@ class ViewsController {
             const cartId = req.session.user.cartId || null;
 
             // Agregar registro para imprimir el cartId
-            req.logger.info("Cart ID en el controlador de vistas:", cartId);
+            //req.logger.info("Cart ID en el controlador de vistas:", cartId);
 
             // Renderizar la vista de productos con un mensaje de bienvenida diferente
             res.render("products", {
@@ -97,9 +97,6 @@ class ViewsController {
     }
 
     async getRegisterView(req, res) {
-        // if (req.session.login) {
-        //     return res.redirect("/login");
-        // }
         res.render("register");
     }
 

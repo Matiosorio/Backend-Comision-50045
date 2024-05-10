@@ -40,7 +40,7 @@ const loggerDesarrollo = winston.createLogger({
 
 // Configuración del logger para producción
 const loggerProduccion = winston.createLogger({
-    levels: levels.levels,
+    levels: levels.level,
     transports: [
         new winston.transports.File({
             filename: "./errors.log",

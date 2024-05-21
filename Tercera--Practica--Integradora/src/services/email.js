@@ -12,7 +12,7 @@ class EmailManager {
         });
     }
 
-    async enviarCorreoCompra(email, first_name, ticket) {
+    async sendPurchaseEmail(email, first_name, ticket) {
         try {
             const mailOptions = {
                 from: "Coder Test <matiasosorio@gmail.com>",
@@ -32,7 +32,7 @@ class EmailManager {
         }
     }
 
-    async enviarCorreoRestablecimiento(email, first_name, token) {
+    async sendPasswordResetEmail(email, first_name, token) {
         try {
             const mailOptions = {
                 from: "Coder Test <matiasosorio@gmail.com>",

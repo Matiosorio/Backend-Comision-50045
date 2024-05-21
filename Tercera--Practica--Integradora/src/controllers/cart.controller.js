@@ -187,7 +187,7 @@ class CartController {
 
             req.logger.info('Compra procesada correctamente:', { cartId });
 
-            await emailManager.enviarCorreoCompra(userWithCart.email, userWithCart.first_name, ticket._id)
+            await emailManager.sendPurchaseEmail(userWithCart.email, userWithCart.first_name, ticket._id)
 
             res.render("checkout", {
                 cliente: userWithCart.first_name,

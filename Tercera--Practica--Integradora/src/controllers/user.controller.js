@@ -89,7 +89,7 @@ class UserController {
       await user.save();
 
       // Enviar correo electrónico con el enlace de restablecimiento utilizando EmailService
-      await emailManager.enviarCorreoRestablecimiento(email, user.first_name, token);
+      await emailManager.sendPasswordResetEmail(email, user.first_name, token);
 
       res.redirect("/send-confirmation");
     } catch (error) {

@@ -19,6 +19,11 @@ const productsRender = (products) => {
     row.classList.add("row");
 
     products.docs.forEach(item => {
+        // Filtrar productos para usuarios premium
+        if (role === "premium" && item.owner !== email) {
+            return; // Saltar este producto si no es del usuario premium
+        }
+
         const card = document.createElement("div");
         card.classList.add("card", "real-time-card", "col-12", "col-sm-6", "col-md-4", "col-lg-3", "mb-3");
 
@@ -77,4 +82,14 @@ const addProduct = () => {
     };
 
     socket.emit("addProduct", product);
+
+    // Limpiar los campos del formulario
+    document.getElementById("title").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("code").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("stock").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("img").value = "";
+    document.getElementById("status").value = "true"; // Restaurar valor por defecto
 };

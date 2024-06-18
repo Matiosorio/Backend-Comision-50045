@@ -151,7 +151,13 @@ class ViewsController {
     }
 
     async premiumView(req, res) {
-        res.render("premium-panel");
+        const user = req.session.user;
+        try {
+            res.render("premium-panel", {role: user.role, email: user.email});
+        } catch (error) {
+            req.logger.error("Error en la vista real time", error);
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
     }
 
 
